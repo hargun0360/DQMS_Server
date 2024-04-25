@@ -6,7 +6,7 @@ dotenv.config();
 
 const app = express();
 const DB = process.env.MONGO_URL;
-console.log(DB);
+
 mongoose
     .connect(DB)
     .then(() => {
@@ -16,7 +16,7 @@ mongoose
         console.log(error);
     });
 
-app.get("/", (req, res) => {    
+app.get("/", (req, res) => {
     res.send("Hello World!");
 });
 
