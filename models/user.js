@@ -10,7 +10,7 @@ const userSchema = new schema({
         type: String,
         require: true,
     },
-    lattitude: {
+    latitude: {
         type: String,
         require: true,
     },
