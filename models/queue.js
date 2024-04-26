@@ -22,6 +22,10 @@ const userSchema = new schema({
     type: Boolean,
     default: false,
   },
+  isDone: {
+    type: Boolean,
+    default: false,
+  },
   numberOfAbsent: {
     type: Number,
     require: true,

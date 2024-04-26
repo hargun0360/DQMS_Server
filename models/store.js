@@ -1,6 +1,21 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
+const counterSchema = new schema({
+  counterId: {
+    type: String,
+    require: true,
+  },
+  waitingTime: {
+    type: String,
+    require: true,
+  },
+  customers: {
+    type: Number,
+    require: true,
+  },
+});
+
 const userSchema = new schema({
   storeName: {
     type: String,
@@ -18,10 +33,7 @@ const userSchema = new schema({
     type: String,
     require: true,
   },
-  counters: {
-    type: Number,
-    require: true,
-  },
+  counters: [counterSchema],
   customers: {
     type: Number,
     require: true,
