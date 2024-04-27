@@ -39,12 +39,17 @@ exports.makestore = async (req, res, next) => {
       return res.status(409).json({ message: "Store already exists." });
     }
 
+    const counters = Array.from({ length: numberOfCounters }, (_, index) => ({
+      avgTimePerPerson: 0,
+      customers: [],
+    }));
+
     const newStore = new Store({
       storeName,
       address,
       longitude,
       latitude,
-      counters: [],
+      counters: counters,
       numberOfCounters,
       about,
       openTime,
