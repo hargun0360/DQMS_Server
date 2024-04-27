@@ -1,39 +1,35 @@
 const mongoose = require("mongoose");
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const userSchema = new schema({
-    name: {
-        type: String,
-        require: true,
-    },
-    mobile: {
-        type: String,
-        require: true,
-    },
-    latitude: {
-        type: String,
-        require: true,
-    },
-    longitude: {
-        type: Number,
-        require: true,
-    },
-    queue: {
-        type: Array,
-        require: true,
-    },
-    isSpam: {
-        type: Boolean,
-        default: false,
-    },
-    isVerified: {
-        type: Boolean,
-        default: false,
-    },
-    cancelationCharge: {
-        type: Number,
-        require: true,
-    },
+const userSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  msisdn: {
+    type: String,
+    required: true,
+  },
+  latitude: {
+    type: String,
+    required: true,
+  },
+  longitude: {
+    type: String,
+    required: true,
+  },
+  userType: {
+    type: String,
+    default: 'NOT_VERIFIED',
+  },
+  isStoreOwner: {
+    type: Boolean,
+    default: false,
+  },
+  cancellationCharge: {
+    type: Number,
+    default: null,
+  },
 });
 
 module.exports = mongoose.model("user", userSchema);

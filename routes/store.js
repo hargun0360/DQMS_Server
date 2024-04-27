@@ -3,6 +3,6 @@ const router = express.Router();
 
 const storeController = require("../controllers/store");
 
-router.post('/makestore',storeController.makestore)
+router.post("/makestore", storeController.makestore);
 
-module.exports=router;
+module.exports = router;

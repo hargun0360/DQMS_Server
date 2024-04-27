@@ -1,72 +1,56 @@
 const mongoose = require("mongoose");
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const counterSchema = new schema({
-  counterId: {
-    type: String,
-    require: true,
-  },
-  waitingTime: {
-    type: String,
-    require: true,
+const counterSchema = new Schema({
+  avgTimePerPerson: {
+    type: Number,
+    required: true,
   },
   customers: {
-    type: Number,
-    require: true,
+    type: [String],
+    required: true,
   },
 });
 
-const userSchema = new schema({
+const storeSchema = new Schema({
   storeName: {
     type: String,
-    require: true,
+    required: true,
   },
   address: {
     type: String,
-    require: true,
+    required: true,
   },
   longitude: {
     type: String,
-    require: true,
+    required: true,
   },
   latitude: {
     type: String,
-    require: true,
+    required: true,
   },
   counters: [counterSchema],
-  customers: {
+  numberOfCounters: {
     type: Number,
-    require: true,
+    required: true,
   },
-  waitingTime: {
-    type: String,
-    require: true,
-  },
-  isFavourite: {
-    type: Boolean,
-    default: false,
-  },
-  avgTimePerPerson: {
-    type: String,
-    require: true,
+  billingTime: {
+    type: Number,
+    required: true,
   },
   about: {
     type: String,
-    require: true,
+    required: true,
   },
   openTime: {
-    type: String,
-    require: true,
+    type: Date,
+    required: true,
   },
   closeTime: {
-    type: String,
-    require: true,
+    type: Date,
+    required: true,
   },
   image: String,
-  isVerified: {
-    type: Boolean,
-    default: false,
-  },
 });
 
-module.exports = mongoose.model("store", userSchema);
+module.exports = mongoose.model("store", storeSchema);

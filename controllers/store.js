@@ -1,4 +1,4 @@
-const Store = require("../models/store");
+const Store = require("../models/store.js");
 
 exports.makestore = async (req, res, next) => {
   const {
@@ -6,13 +6,12 @@ exports.makestore = async (req, res, next) => {
     address,
     longitude,
     latitude,
-    counters,
-    customers,
-    waitingTime,
-    avgTimePerPerson,
+    numberOfCounters,
     about,
     openTime,
     closeTime,
+    billingTime,
+    image,
   } = req.body;
 
   if (
@@ -20,22 +19,19 @@ exports.makestore = async (req, res, next) => {
     !address ||
     !longitude ||
     !latitude ||
-    !counters ||
-    !customers ||
-    !waitingTime ||
-    !avgTimePerPerson ||
     !about ||
     !openTime ||
-    !closeTime
+    !closeTime ||
+    !numberOfCounters ||
+    !billingTime
   ) {
-    return res
-      .status(400)
-      .json({ message: "Please provide all required fields." });
+    return res.status(400).json({ message: "Missing required fields." });
   }
 
   try {
     const existingStore = await Store.findOne({
       storeName,
+      address,
       longitude,
       latitude,
     });
@@ -43,13 +39,29 @@ exports.makestore = async (req, res, next) => {
       return res.status(409).json({ message: "Store already exists." });
     }
 
-    const newStore = new Store(req.body);
+    const newStore = new Store({
+      storeName,
+      address,
+      longitude,
+      latitude,
+      counters: [],
+      numberOfCounters,
+      about,
+      openTime,
+      closeTime,
+      image,
+      billingTime,
+      isVerified: false,
+    });
+
     const savedStore = await newStore.save();
-    res
-      .status(201)
-      .json({ message: "Store created successfully", storeId: savedStore._id });
-  } catch (err) {
-    res.status(500).json({ message: "Server error", error: err });
-    next(err);
+    res.status(201).json({
+      message: "Store created successfully",
+      storeId: savedStore._id,
+      store: savedStore,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error });
+    next(error);
   }
 };
